@@ -29,7 +29,11 @@ def login():
         hashed_password = luser["password"]
         if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
             access_token = create_access_token(identity=email)
-            return jsonify(access_token=access_token), 200
+            response = jsonify({
+            "accessToken": access_token,
+            "message": "Login successful"
+        })
+            return response, 200
         else:
             return jsonify({"message": "Invalid email or password 1"}), 400
     else:
